@@ -12,7 +12,19 @@ body {
 	line-height: 2em;
 }
 
-header, section, footer {
+section a {
+	color: #113399;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	transition: 0.5s;
+	text-decoration: none;
+}
+
+section a:hover {
+	text-decoration: underline;
+}
+
+header, section {
 	width: 90%;
 	margin: 0 auto;
 }
@@ -25,8 +37,12 @@ header nav {
 	width: 100%;
 }
 
+footer {
+	margin-top: 30px;
+}
+
 nav {
-	
+	padding: 0 20px;
 }
 
 nav ul {
@@ -35,32 +51,86 @@ nav ul {
 	padding: 0;
 }
 
-nav ul li {
+nav li {
 	display: inline-block;
 	padding: 4px 3px;
 	margin: 0;
 }
 
-nav ul li a {
+nav a {
 	display: inline-block;
 	font-size: 20px;
 	font-family: Arial, Helvetica, sans-serif;
-	color: #666666;
 	text-decoration: none;
 	padding: 2px 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	-webkit-transition: 1s;
-	-moz-transition: 1s;
-	transition: 1s;
 }
 
-nav ul li a:hover {
+nav a:hover {
 	color: #CC3333;
+}
+
+nav a.current {
+	color: #CC3333;
+}
+
+header nav a {
+	color: #999999;
+}
+
+header nav a:hover {
 	background-color: #333333;
 }
 
-nav ul li a.current {
-	color: #CC3333;
+footer nav a {
+	color: #666666;
+}
+
+footer nav a:hover {
+	background-color: #CCCCCC;
+}
+
+header hgroup * {
+	display: inline-block;
+}
+
+header h1 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 36px;
+	font-weight: normal;
+	text-shadow: #6374AB 2px 2px 2px;
+}
+
+header hgroup h2 {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+header hgroup h2:before {
+	content: "—";
+	padding-right: 5px;
+}
+
+article {
+	position: relative;
+	padding: 10px;
+	border-bottom: 2px solid #CCCCCC;
+}
+
+article:first-of-type {
+	border-top: 2px solid #CCCCCC;
+}
+
+article:before {
+	content: "➳";
+	position: absolute;
+	left: -36px;
+	font-size: 36px;
+}
+
+article h2 {
+	margin: 5px 0;
+	font-weight: normal;
 }
