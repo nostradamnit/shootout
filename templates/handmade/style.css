@@ -4,48 +4,133 @@ html {
 }
 
 body {
-   font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
-	background-color: white;
 	color: #575757;
-	margin: 0 0 1px; height: 100%; 
-	line-height: 1.7;
-	border-top: 10px solid black;
+	margin: 0;
+	padding: 50px 0 0 0;
+	line-height: 2em;
 }
 
-section {
-    display: block;
-    clear: both;
+section a {
+	color: #113399;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	transition: 0.5s;
+	text-decoration: none;
+}
+
+section a:hover {
+	text-decoration: underline;
+}
+
+header, section {
+	width: 90%;
+	margin: 0 auto;
+}
+
+header nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: black;
+	width: 100%;
+}
+
+footer {
+	margin-top: 30px;
 }
 
 nav {
-	
+	padding: 0 20px;
 }
 
-nav ul li {
-	float: left;
-	margin-left: 16px;
-	line-height: normal;
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
-nav ul li a {
+nav li {
+	display: inline-block;
+	padding: 4px 3px;
+	margin: 0;
+}
+
+nav a {
+	display: inline-block;
 	font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	padding: 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+nav a:hover {
+	color: #CC3333;
+}
+
+nav a.current {
+	color: #CC3333;
+}
+
+header nav a {
+	color: #999999;
+}
+
+header nav a:hover {
+	background-color: #333333;
+}
+
+footer nav a {
 	color: #666666;
+}
+
+footer nav a:hover {
+	background-color: #CCCCCC;
+}
+
+header hgroup * {
+	display: inline-block;
+}
+
+header h1 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 36px;
 	font-weight: normal;
-	display: block;	/* IE6, IE7 line height fix */
-	padding-bottom: 10px;
-	padding-top: 5px;
-	background-color: transparent;
-	margin-top: 5px;
-	margin-right: 6px;
-   text-decoration: none;
+	text-shadow: #6374AB 2px 2px 2px;
 }
 
-nav ul li a: hover {
-	color: #CC3333;
+header hgroup h2 {
+	font-size: 12px;
+	font-weight: normal;
 }
 
-nav ul li a.current {
-	color: #CC3333;
+header hgroup h2:before {
+	content: "—";
+	padding-right: 5px;
+}
+
+article {
+	position: relative;
+	padding: 10px;
+	border-bottom: 2px solid #CCCCCC;
+}
+
+article:first-of-type {
+	border-top: 2px solid #CCCCCC;
+}
+
+article:before {
+	content: "➳";
+	position: absolute;
+	left: -36px;
+	font-size: 36px;
+}
+
+article h2 {
+	margin: 5px 0;
+	font-weight: normal;
 }
