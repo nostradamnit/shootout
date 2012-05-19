@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css' />
+	<title>My Bookmarker</title>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>My Bookmarker</h1>
+			<h2>This is where I store my bookmarks</h2>
+		</hgroup> 
+		<nav>
+			<ul>
+				<li><a href="#">home</a></li>
+				<li><a href="#">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</header>
+    <section>
+        {% if not session.logged_in %}
+            <a href="{{ url_for('login') }}">log in</a>
+        {% else %}
+            <strong>User {{ session.username }}</strong>
+            <a href="{{ url_for('logout') }}" style="display: block">log out</a>
+        {% endif %}
+                          
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}
+    </section>
+    {% block body %}
+    you have no body (include section tags)
+    {% endblock %}
+	<section>
+		<a href="#">Add a link</a>
+		<h1>My Bookmarks</h1>
+		<article>
+			<time datetime="2012-04-21" pubdate>April 21, 2012</time>
+			<h2>
+				<a href="http://www.blah.com/" rel="bookmark" title="link to blah.com">
+					blah.com
+				</a>
+			</h2>
+		</article>
+		<article>
+			<time datetime="2012-04-22" pubdate>April 22, 2012</time>
+			<h2>
+				<a href="http://www.fyeah.com/" rel="bookmark" title="link to fyeah.com">
+					fyeah.com is a super website
+				</a>
+			</h2>
+		</article>
+	</section>
+	<footer>
+		<nav>
+			<ul>
+				<li><a href="#">home</a></li>
+				<li><a href="#">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</footer>
+</body>
+</html>
