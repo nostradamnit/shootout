@@ -1,0 +1,15 @@
+$def with (content, form)
+
+$var page_title: My Bookmarker - web.py version - $content
+    <section>
+       <h2>Add Bookmark</h2>
+       $if not form.valid:
+            <p class="error"><strong>Error:</strong> error</p>
+       <form action="/my_bookmarks/add" method="post">
+        <dl>
+            $:form.render()
+            <dd><input type="submit" value="Add Bookmark" /></dd>
+        </dl>
+       </form>
+    </section>
+

@@ -13,4 +13,3 @@ Feature: Account creation
         Given I choose a username that already exists
         When I submit the form
         Then I am notified that the username already exists
-        

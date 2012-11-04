@@ -1,0 +1,41 @@
+$def with (content)
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/static/css/style.css" />
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css' />
+	<title>$content.page_title</title>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>My Bookmarker</h1>
+			<h2>This is where I store my bookmarks</h2>
+		</hgroup> 
+		<nav>
+			<ul>
+				<li><a href="#">home</a></li>
+				<li><a href="#">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</header>
+    <section>
+        $:content
+    </section>
+    
+	
+	<footer>
+		<nav>
+			<ul>
+				<li><a href="#">home</a></li>
+				<li><a href="#">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</footer>
+</body>
+</html>

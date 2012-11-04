@@ -1,0 +1,15 @@
+$def with (content, form)
+
+$var page_title: My Bookmarker - web.py version - Login
+    <section>
+       <h2>Login</h2>
+       $if not form.valid:
+            <p class="error"><strong>Error:</strong> error</p>
+       <form action="/login" method="post">
+        <dl>
+            $:form.render()
+            <dd><input type="submit" value="Login" /></dd>
+        </dl>
+       </form>
+    </section>
+
