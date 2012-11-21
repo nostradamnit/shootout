@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% load comments %}
+
+{% block body %}
+    <section>
+        {% if bookmarks %}
+        {% for bm in bookmarks %}
+        <article>
+			<time datetime="2012-04-21" pubdate>{{ bm.pub_date }}</time>
+			<h2>
+				<a href="{{ bm.url }}" rel="bookmark" title="link to {{ bm.url }}">
+					{{ bm.title }}
+				</a>
+                <div>{{ bm.description }}</div>
+			</h2>
+            {% get_comment_count for bm as cmt_count %}
+            <h4>{{ cmt_count }} comments for this link</h4>
+            <div>
+            {% render_comment_list for bm %}
+            </div>
+            <b onclick="toggleVisibility('#comment_form{{bm.id}}')">comment</b>
+            <div id="comment_form{{bm.id}}" class="comment_form">
+            {% render_comment_form for bm %}
+            </div>
+		</article>
+        {% endfor %}
+        {% else %}
+        <article>Ain't no content when you're new... Please log in and add some.</article>
+        {% endif %}
+		<!-- example content
+		<h1>My Bookmarks</h1>
+		<article>
+			<time datetime="2012-04-21" pubdate>April 21, 2012</time>
+			<h2>
+				<a href="http://www.blah.com/" rel="bookmark" title="link to blah.com">
+					blah.com
+				</a>
+			</h2>
+		</article>
+		<article>
+			<time datetime="2012-04-22" pubdate>April 22, 2012</time>
+			<h2>
+				<a href="http://www.fyeah.com/" rel="bookmark" title="link to fyeah.com">
+					fyeah.com is a super website
+				</a>
+			</h2>
+		</article>
+        -->
+	</section>
+{% endblock %}
+{% block doc_ready %}
+<!-- doc_ready block -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.comment_form').css({display: 'none'});
+    });
+    
+    function toggleVisibility(id){
+        var state = $(id).css('display') == 'block' ? 'none' : 'block';
+        $(id).css({'display': state})
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% load static %}
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="{% get_static_prefix %}css/style.css" />
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css' />
+    <script src="{% get_static_prefix %}js/jquery/jquery.js"></script>
+	<title>My Bookmarker</title>
+</head>
+<body>
+	<header>
+		<hgroup>
+			<h1>My Bookmarker</h1>
+			<h2>This is where I store my bookmarks</h2>
+		</hgroup> 
+		<nav>
+			<ul>
+				<li><a href="/">home</a></li>
+				<li><a href="/popular/">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</header>
+    <section>
+        {% if user.is_authenticated %}
+            <strong>User {{ user.username }}</strong>
+            <a href="{% url logout %}?next_page={% firstof request.path '/' %}" >log out</a>
+            <div><a href="{% url bookmarks.views.add_bookmark %}">add bookmark</a></div>
+        {% else %}
+            <a href="{% url login %}?next={% firstof request.path '/' %}">Login</a>
+        {% endif %}
+                          
+    </section>
+    {% block body %}
+    you have no body (include section tags)
+    {% endblock %}
+	<footer>
+		<nav>
+			<ul>
+				<li><a href="#">home</a></li>
+				<li><a href="#">popular</a></li>
+				<li><a href="#">settings</a></li>
+				<li><a href="#">about</a></li>
+			</ul>
+		</nav>
+	</footer>
+    {% block doc_ready %}
+    {% endblock %}
+</body>
+</html>

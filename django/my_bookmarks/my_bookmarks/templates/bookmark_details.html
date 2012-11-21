@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% load comments %}
+{% block body %}
+    <section>
+       <h2>Bookmark Details</h2>
+        <article>
+			<time datetime="2012-04-21" pubdate>{{ bookmark.pub_date }}</time>
+			<h2>
+				<a href="{{ bookmark.url }}" rel="bookmark" title="link to {{ bookmark.url }}">
+					{{ bookmark.title }}
+				</a>
+                <div>{{ bookmark.description }}</div>
+			</h2>
+            {% get_comment_count for bookmark as cmt_count %}
+            <h4>{{ cmt_count }} comments for this link</h4>
+            <div>
+            {% render_comment_list for bookmark %}
+            </div>
+            <b onclick="toggleVisibility('#comment_form{{bookmark.id}}')">comment</b>
+            <div id="comment_form{{bookmark.id}}" class="comment_form">
+            {% render_comment_form for bookmark %}
+            </div>
+		</article>
+    </section>
+{% endblock %}
+{% block doc_ready %}
+<!-- doc_ready block -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.comment_form').css({display: 'none'});
+    });
+    
+    function toggleVisibility(id){
+        var state = $(id).css('display') == 'block' ? 'none' : 'block';
+        $(id).css({'display': state})
+    }
+</script>
+{% endblock %}

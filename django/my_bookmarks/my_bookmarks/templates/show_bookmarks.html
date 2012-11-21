@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block body %}
+    <div class="post">
+        {% if session.logged_in %}
+        <form action="{{ url_for('add_bookmark') }}" method="post" class="add-entry">
+        <dl>
+            {{ render_field(form.url) }}
+            {{ render_field(form.description) }}
+            <dd><input type="submit" value="Submit" /></dd>
+        </dl>
+        </form>
+        {% endif %}
+       
+    </div>
+    
+    {% for bookmark in bookmarks %}
+        <div class="post"><h2>{{ bookmark.url }}</h2><p>{{ bookmark.description|safe }}</p></div>
+    {% else %}
+        <section>
+        <div class="post"><em>Ain't no bookmarks so far.</em></div>
+        </section>
+    {% endfor %}
+
+{% endblock %}
