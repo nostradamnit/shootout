@@ -17,3 +17,4 @@ CREATE TABLE bookmark (
 	author_id INTEGER, 
 	FOREIGN KEY(author_id) REFERENCES user (id)
 );
+
