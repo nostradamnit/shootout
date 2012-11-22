@@ -1,0 +1,59 @@
+my bookmarks todo:
+Basic step for implementing the project with a given framework
+Each step generally depends on the prior step for completion
+
+1. start up
+goal: be able to load static my_bookmarks homepage with framework
+create project skeleton (varies by framework)
+create models structure
+create views structure
+create urls structure
+adapt templates - base template, child templates, etc. 
+
+2. user registration (if necessary - could be part of framework)
+goal: be able to register a user and log in / log out
+create user
+    - create form
+    - create urls (/register/, /register/thanks/, etc)
+    - create templates - integrate form and error handling
+    - create save functionality
+    - create confirmation / logged in as display, etc
+
+3. bookmark creation
+goal: be able to create a new bookmark
+    - same basic steps a user registration
+    
+4. create home page (index)
+goal: be able to list the last ~10 bookmarks
+    - create template
+    - create query
+    - pass bookmarks to template and display them
+
+5. create my bookmarks
+goal: be able to list users bookmarks
+quite similiar to home page, except only users bookmarks
+
+6. edit bookmark
+goal: user can edit bookmark choosen from my bookmarks page
+    - create form
+    - create update / delete
+    - handle errors
+    - update confirmation
+
+7. comments
+goal: authenticated users can comment on bookmarks
+create or implement comment system
+    - create model
+    - create urls
+    - create templates
+    - create forms
+
+8. votes
+goal: authenticated users can vote (+1 / -1) for bookmarks
+create voting system
+    - create or modify model
+    - create urls
+    - create or modify templates
+    - create action buttons
+ 
+
