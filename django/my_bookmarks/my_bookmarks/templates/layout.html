@@ -17,7 +17,8 @@
 		<nav>
 			<ul>
 				<li><a href="/">home</a></li>
-				<li><a href="/popular/">popular</a></li>
+				<li><a href="/bookmark/show_mine/">mine</a></li>
+                <li><a href="/popular/">popular</a></li>
 				<li><a href="#">settings</a></li>
 				<li><a href="#">about</a></li>
 			</ul>
@@ -31,7 +32,15 @@
         {% else %}
             <a href="{% url login %}?next={% firstof request.path '/' %}">Login</a>
         {% endif %}
-                          
+                
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
     </section>
     {% block body %}
     you have no body (include section tags)

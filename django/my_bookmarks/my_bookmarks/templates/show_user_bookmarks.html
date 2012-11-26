@@ -2,7 +2,8 @@
 {% load comments %}
 {% block body %}
     <section>
-       <h2>Bookmarks for {{ request.user }}</h2>
+       <h2>Bookmarks for <i>{{ user.username }}</i></h2>
+       <h4>You have {{ bookmarks|length }} bookmarks.</h4>
        {% if bookmarks %}
        {% for bm in bookmarks %}
         <article>
@@ -13,6 +14,7 @@
 				</a>
                 <div>{{ bm.description }}</div>
 			</h2>
+            <b><a href="/bookmark/{{bm.pk}}/modify/">edit</a></b>
             {% get_comment_count for bm as cmt_count %}
             <h4>{{ cmt_count }} comments for this link</h4>
             <div>

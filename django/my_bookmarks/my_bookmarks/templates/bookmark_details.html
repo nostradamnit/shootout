@@ -11,15 +11,24 @@
 				</a>
                 <div>{{ bookmark.description }}</div>
 			</h2>
+            {% if bookmark.author == user %}
+            <b><a href="/bookmark/{{bookmark.pk}}/modify/">edit</a></b>
+            {% endif %}
             {% get_comment_count for bookmark as cmt_count %}
             <h4>{{ cmt_count }} comments for this link</h4>
             <div>
             {% render_comment_list for bookmark %}
             </div>
+            {% if user.is_authenticated %}
             <b onclick="toggleVisibility('#comment_form{{bookmark.id}}')">comment</b>
             <div id="comment_form{{bookmark.id}}" class="comment_form">
             {% render_comment_form for bookmark %}
             </div>
+            {% else %}
+            <div id="login_comment">
+                <a href="{% url login %}?next={% firstof request.path '/' %}">login</a> to comment!
+            </div>
+            {% endif %} 
 		</article>
     </section>
 {% endblock %}

@@ -2,12 +2,23 @@
 {% block body %}
     <section>
        <h2>Modify Bookmark</h2>
-        <form action="/bookmark/{{bookmark.pk}}/modify/" method="post">{% csrf_token %}
+        <form action="/bookmark/{{bookmark_id}}/modify/" method="post">{% csrf_token %}
         <ul>
         {{ form.as_ul }}
         <li><input type="submit" value="Submit" /></li>
         </ul>
         </form>
-        <a href="/bookmark/{{bookmark.pk}}/delete/">delete bookmark</a>
+        <a href="/bookmark/{{bookmark_id}}/delete/" id="delete_bookmark" >delete bookmark</a>
     </section>
+{% endblock %}
+{% block doc_ready %}
+<script type="text/javascript">
+    $(document).ready(function(){
+       $('#delete_bookmark').click(function(event){
+          if(!confirm('you sure you wanna delete it?')){
+            event.preventDefault();
+          } 
+       }); 
+    });
+</script>
 {% endblock %}

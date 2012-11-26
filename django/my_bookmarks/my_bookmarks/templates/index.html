@@ -4,24 +4,33 @@
 {% block body %}
     <section>
         {% if bookmarks %}
+        there are {{ bookmarks|length }} bookmarks
         {% for bm in bookmarks %}
         <article>
-			<time datetime="2012-04-21" pubdate>{{ bm.pub_date }}</time>
+            <time datetime="2012-04-21" pubdate>{{ bm.pub_date }}</time>
 			<h2>
 				<a href="{{ bm.url }}" rel="bookmark" title="link to {{ bm.url }}">
 					{{ bm.title }}
 				</a>
                 <div>{{ bm.description }}</div>
+                <a href="{{bm.get_absolute_url}}" class="details">details</a>
 			</h2>
             {% get_comment_count for bm as cmt_count %}
             <h4>{{ cmt_count }} comments for this link</h4>
             <div>
             {% render_comment_list for bm %}
             </div>
+            {% if user.is_authenticated %}
+            <div><span>{{ bm.votes }}</span> <a href="/bookmark/{{bm.pk}}/upvote/">+1</a> <a href="/bookmark/{{bm.pk}}/downvote/">-1</a></div>
             <b onclick="toggleVisibility('#comment_form{{bm.id}}')">comment</b>
             <div id="comment_form{{bm.id}}" class="comment_form">
             {% render_comment_form for bm %}
             </div>
+            {% else %}
+            <div id="login_comment">
+                <a href="{% url login %}?next={% firstof request.path '/' %}">login</a> to comment!
+            </div>
+            {% endif %} 
 		</article>
         {% endfor %}
         {% else %}
