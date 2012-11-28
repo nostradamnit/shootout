@@ -21,7 +21,13 @@
             {% render_comment_list for bm %}
             </div>
             {% if user.is_authenticated %}
-            <div><span>{{ bm.votes }}</span> <a href="/bookmark/{{bm.pk}}/upvote/">+1</a> <a href="/bookmark/{{bm.pk}}/downvote/">-1</a></div>
+            <div>
+                <b onclick="upvote({{bm.pk}});">+1</b>
+                <div id="vote_count_{{bm.pk}}">{{ bm.votes }}</div> 
+                <b onclick="downvote({{bm.pk}});">-1</b>
+                
+            </div>
+                
             <b onclick="toggleVisibility('#comment_form{{bm.id}}')">comment</b>
             <div id="comment_form{{bm.id}}" class="comment_form">
             {% render_comment_form for bm %}
@@ -36,25 +42,6 @@
         {% else %}
         <article>Ain't no content when you're new... Please log in and add some.</article>
         {% endif %}
-		<!-- example content
-		<h1>My Bookmarks</h1>
-		<article>
-			<time datetime="2012-04-21" pubdate>April 21, 2012</time>
-			<h2>
-				<a href="http://www.blah.com/" rel="bookmark" title="link to blah.com">
-					blah.com
-				</a>
-			</h2>
-		</article>
-		<article>
-			<time datetime="2012-04-22" pubdate>April 22, 2012</time>
-			<h2>
-				<a href="http://www.fyeah.com/" rel="bookmark" title="link to fyeah.com">
-					fyeah.com is a super website
-				</a>
-			</h2>
-		</article>
-        -->
 	</section>
 {% endblock %}
 {% block doc_ready %}
@@ -68,5 +55,70 @@
         var state = $(id).css('display') == 'block' ? 'none' : 'block';
         $(id).css({'display': state})
     }
+    
+    function upvote(pk){
+        url = '/bookmark/' + pk + '/upvote/';
+        //alert($('#vote_count_' + pk).text());
+        invokeVote(url, pk);
+    }
+    
+    function downvote(pk){
+        url = '/bookmark/' + pk + '/downvote/';
+        invokeVote(url, pk);
+    }
+    
+    function invokeVote(url, pk){
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function(data){
+                updateVoteCount(data, pk);
+            }
+        });
+        return false;
+    }
+    
+    function updateVoteCount(data, pk){
+        $('#vote_count_' + pk).text(data.votes);
+    }
+    
+    
+    $(document).ajaxSend(function(event, xhr, settings) {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function sameOrigin(url) {
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        function safeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    });
 </script>
 {% endblock %}

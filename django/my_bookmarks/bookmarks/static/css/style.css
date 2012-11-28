@@ -20,8 +20,29 @@ section a {
 	text-decoration: none;
 }
 
+section article a.details {
+	color: #2E5B78;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	transition: 0.5s;
+	text-decoration: none;
+    font-size: smaller;
+}
+
 section a:hover {
 	text-decoration: underline;
+}
+article dl#comments {
+    margin-top: -10px;
+}
+article dl#comments dt#c1 {
+    font-size: x-small;
+    
+}
+
+article dl#comments dd {
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
 
 header, section {
@@ -141,4 +162,12 @@ section form ul li {
 
 label {
     display: block;
+}
+
+ul.messages {
+    list-style-type: none;
+}
+ul.messages li.success {
+    font-weight: bold;
+    color: maroon;
 }
