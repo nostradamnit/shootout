@@ -58,7 +58,6 @@
     
     function upvote(pk){
         url = '/bookmark/' + pk + '/upvote/';
-        //alert($('#vote_count_' + pk).text());
         invokeVote(url, pk);
     }
     
@@ -76,14 +75,13 @@
                 updateVoteCount(data, pk);
             }
         });
-        return false;
     }
     
     function updateVoteCount(data, pk){
         $('#vote_count_' + pk).text(data.votes);
     }
     
-    
+    // boilerplate CSRF handling code
     $(document).ajaxSend(function(event, xhr, settings) {
         function getCookie(name) {
             var cookieValue = null;
@@ -120,5 +118,6 @@
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         }
     });
+    // end boilerplate 
 </script>
 {% endblock %}
