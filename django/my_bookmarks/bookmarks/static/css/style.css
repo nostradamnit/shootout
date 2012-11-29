@@ -45,6 +45,24 @@ article dl#comments dd {
     margin-bottom: -10px;
 }
 
+.voteButtons {
+    width: 10px;
+    float: left;
+    padding: 5px 15px 5px 5px;
+    text-align: center;
+}
+
+.voteButtons b {
+    display: block;
+    width: 1em;
+    text-align: right;
+}
+
+.voteButton b.vote {
+    cursor: pointer;
+}
+
+
 header, section {
 	width: 90%;
 	margin: 0 auto;

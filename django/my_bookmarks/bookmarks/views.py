@@ -1,13 +1,15 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib import messages
-from bookmarks.models import Bookmark
-from bookmarks.forms import BookmarkForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core import serializers
+from django.views.generic import TemplateView
 import json
 from datetime import datetime
+from bookmarks.models import Bookmark
+from bookmarks.forms import BookmarkForm
+
 
 def index(request):
     bookmarks = Bookmark.objects.filter(pub_date__lte=datetime.utcnow).order_by('-pub_date')[:10]
@@ -87,3 +89,7 @@ def delete(request, bookmark_id):
     bookmark.delete()
     messages.success(request, 'Bookmark successfully deleted.')
     return HttpResponseRedirect('/bookmark/show_mine/')
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
+    

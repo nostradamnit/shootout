@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from bookmarks.views import AboutView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -15,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^bookmark/(?P<bookmark_id>\d+)/modify/$', 'bookmarks.views.modify'),
     url(r'^bookmark/(?P<bookmark_id>\d+)/delete/$', 'bookmarks.views.delete'),
     url(r'^bookmark/(?P<bookmark_id>\d+)/(?P<direction>(up|down)vote)/$', 'bookmarks.views.vote'),
-    #url(r'^bookmark/(?P<bookmark_id>\d+)/downvote/$', 'bookmarks.views.downvote'),
+    url(r'^about/$', AboutView.as_view()),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^comments/', include('django.contrib.comments.urls')),
