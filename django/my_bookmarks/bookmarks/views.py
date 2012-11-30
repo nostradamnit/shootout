@@ -4,25 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core import serializers
-from django.views.generic import TemplateView
+from django.views.generic import ListView, DetailView
 import json
 from datetime import datetime
 from bookmarks.models import Bookmark
 from bookmarks.forms import BookmarkForm
 
 
-def index(request):
-    bookmarks = Bookmark.objects.filter(pub_date__lte=datetime.utcnow).order_by('-pub_date')[:10]
-    return render_to_response('index.html', 
-                                {'bookmarks': bookmarks}, 
-                                context_instance=RequestContext(request))
+class TenMostRecentBookmarks(ListView): # index view
+    context_object_name = 'bookmarks'
+    queryset = Bookmark.objects.filter(pub_date__lte=datetime.utcnow).order_by('-pub_date')[:10]
 
-def details(request, bookmark_id):
-    bookmark = get_object_or_404(Bookmark, pk=bookmark_id)
-    return render_to_response('bookmark_details.html', 
-                                {'bookmark': bookmark}, 
-                                context_instance=RequestContext(request))
-
+class BookmarkDetail(DetailView):
+    context_object_name = 'bookmark'
+    queryset = Bookmark.objects.all()
+    
 @login_required
 def show_user_bookmarks(request):
     bookmarks = Bookmark.objects.filter(author=request.user)
@@ -89,7 +85,3 @@ def delete(request, bookmark_id):
     bookmark.delete()
     messages.success(request, 'Bookmark successfully deleted.')
     return HttpResponseRedirect('/bookmark/show_mine/')
-
-class AboutView(TemplateView):
-    template_name = 'about.html'
-    
