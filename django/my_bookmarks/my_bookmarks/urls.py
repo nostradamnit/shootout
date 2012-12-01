@@ -1,12 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from bookmarks.views import TenMostRecentBookmarks, BookmarkDetail
+from bookmarks.views import TenMostRecentBookmarks, TenMostPopularBookmarks, BookmarkDetail
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
     
     url(r'^$', TenMostRecentBookmarks.as_view(), name='index'),
+    url(r'^popular/$', TenMostPopularBookmarks.as_view(), name='popular'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}, name='logout'),
     url(r'^bookmark/show_mine/$', 'bookmarks.views.show_user_bookmarks'),

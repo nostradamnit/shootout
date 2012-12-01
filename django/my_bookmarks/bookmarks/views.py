@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core import serializers
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 import json
 from datetime import datetime
 from bookmarks.models import Bookmark
@@ -15,9 +15,16 @@ class TenMostRecentBookmarks(ListView): # index view
     context_object_name = 'bookmarks'
     queryset = Bookmark.objects.filter(pub_date__lte=datetime.utcnow).order_by('-pub_date')[:10]
 
+
+class TenMostPopularBookmarks(ListView): # popular view
+    context_object_name = 'bookmarks'
+    queryset = Bookmark.objects.all().order_by('-votes')[:10]
+
+
 class BookmarkDetail(DetailView):
     context_object_name = 'bookmark'
     queryset = Bookmark.objects.all()
+    
     
 @login_required
 def show_user_bookmarks(request):
